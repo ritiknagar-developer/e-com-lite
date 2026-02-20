@@ -5,6 +5,7 @@ import Cart from "../components/Cart";
 import Orders from "../components/Orders";
 import Loader from "../components/Loader";
 import Toast from "../components/Toast";
+import api from "../api/axios";
 
 export default function Home() {
   const [products, setProducts] = useState([]);
@@ -24,7 +25,7 @@ export default function Home() {
 
   const fetchProducts = async () => {
     try {
-      const res = await axios.get("http://localhost:5000/products");
+      const res = await api.get("/products");
       setProducts(res.data);
     } catch {
       setToast("Failed to load products");
@@ -34,7 +35,7 @@ export default function Home() {
 
   const fetchOrders = async () => {
     try {
-      const res = await axios.get("http://localhost:5000/orders");
+      const res = await api.get("/orders");
       setOrders(res.data);
     } catch (err) {
       console.log(err);
@@ -59,7 +60,7 @@ export default function Home() {
 
   const checkout = async () => {
     try {
-      await axios.post("http://localhost:5000/orders/checkout", {
+      await api.post("/orders/checkout", {
         items: cart.map((i) => ({
           productId: i._id,
           quantity: i.quantity,

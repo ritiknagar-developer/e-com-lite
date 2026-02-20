@@ -15,4 +15,6 @@ mongoose.connect(process.env.MONGO_URI)
 app.use("/products", require("./routes/productRoutes"));
 app.use("/orders", require("./routes/orderRoutes"));
 
-app.listen(5000, ()=> console.log("Server running"));
+app.listen(process.env.PORT, () =>
+  console.log(`Server running on http://localhost:${process.env.PORT}`)
+);
