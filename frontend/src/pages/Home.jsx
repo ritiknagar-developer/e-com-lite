@@ -49,7 +49,7 @@ export default function Home() {
       if (exist.quantity >= product.stock) return setToast("Out of stock");
 
       setCart(
-        cart.map((c) =>
+        cart?.map((c) =>
           c._id === product._id ? { ...c, quantity: c.quantity + 1 } : c,
         ),
       );
@@ -61,7 +61,7 @@ export default function Home() {
   const checkout = async () => {
     try {
       await api.post("/orders/checkout", {
-        items: cart.map((i) => ({
+        items: cart?.map((i) => ({
           productId: i._id,
           quantity: i.quantity,
         })),
@@ -103,7 +103,7 @@ export default function Home() {
       </div>
 
       <div className="grid sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-5">
-        {products.map((p) => (
+        {products?.map((p) => (
           <ProductCard key={p._id} product={p} add={addToCart} />
         ))}
       </div>
